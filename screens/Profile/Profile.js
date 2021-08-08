@@ -11,16 +11,31 @@ const Stack = createStackNavigator()
 function Profile() {
   const { dispatch, profile } = useStoreon('profile')
 
-  // useEffect(() => {
-  //   fetchProfile()
-  // }, [])
-
-  // function fetchProfile() {
-  //   dispatch('profile/fetch-info')
-  // }
+  useEffect(() => {
+    fetchProfileFromInstagram(profile.instapi)
+  }, [])
 
   function handleLogout() {
     dispatch('profile/logout')
+  }
+
+  async function fetchProfileFromInstagram(instapi) {
+    try {
+      const {
+        profile_pic_url,
+        username,
+        id,
+        edge_followed_by,
+        edge_follow,
+        edge_owner_to_timeline_media
+      } = await instapi.getProfileInfo()
+
+      const profileInfo = {profile_pic_url, username, id, followers: edge_followed_by.count, following: edge_follow.count, posts: edge_owner_to_timeline_media.count}
+      dispatch('profile/update', profileInfo)
+    } catch (error) {
+      console.log(error)
+      ToastAndroid.show(error.message, ToastAndroid.SHORT)
+    }
   }
 
   const ProfileCard = () => (

@@ -1,15 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native'
-import { useStoreon } from 'storeon/react'
+// import { useStoreon } from 'storeon/react'
 
 import { CheckCircleOutlineIcon } from '../../../assets/icons'
 
 function EmptyTasksList() {
-  const { dispatch } = useStoreon('tasks')
-
-  function fetchTasks() {
-    dispatch('tasks/fetch-all')
-  }
+  // const { dispatch } = useStoreon('tasks')
 
   return (
     <View style={styles.container}>

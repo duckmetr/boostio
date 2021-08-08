@@ -9,7 +9,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "build": "cd android && ./gradlew assembleRelease"
+    "build:apk": "cd android && ./gradlew assembleRelease",
+    "build:aab": "cd android && ./gradlew bundleRelease"
   },
   "dependencies": {
     "@logvinme/react-native-action-button": "^2.9.1",

@@ -6,6 +6,8 @@ import { useNavigation } from '@react-navigation/native'
 import ModalPosts from './components/ModalPosts'
 import { AddPhotoIcon } from '../../assets/icons'
 
+import * as api from '../../api'
+
 import FontAwesome5Icons from 'react-native-vector-icons/FontAwesome5'
 
 function New() {
@@ -21,18 +23,27 @@ function New() {
   }, [])
 
   async function fetchPosts(id) {
-    const res = await profile.client.getUserIdPhotos({id})
+    const res = await profile.instapi.getUserIdPhotos({id})
     setPosts(res.user.edge_owner_to_timeline_media.edges)
   }
 
-  function createOrder() {
+  async function fetchCreate(newTask) {
+    try {
+      await api.createTask(newTask)
+    } catch (error) {
+      console.error(error)
+      ToastAndroid.show(error.message, ToastAndroid.SHORT)
+    }
+  }
+
+  async function createOrder() {
     const { mediaId, username, newurl } = profile
-    const campaign = {id: mediaId, mediaId, username, displayUrl: newurl, likes, whoLiked: [], completed: false}
+    const newTask = {mediaId, username, displayUrl: newurl, likes, whoLiked: [], completed: false}
 
-    dispatch('tasks/fetch-create', campaign)
-    dispatch('orders/create', campaign)
+    dispatch('orders/create', newTask)
+    await fetchCreate(newTask)
+
     setLikes('1')
-
     navigation.goBack()
   }
 

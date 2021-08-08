@@ -12,17 +12,17 @@ function OrdersList() {
   const { dispatch, orders } = useStoreon('orders')
   const navigation = useNavigation()
 
-  useEffect(() => {
-    fetchOrders()
-  }, [])
+  // useEffect(() => {
+  //   fetchOrders()
+  // }, [])
   
   function handleDelete() {
     console.log('delete')
   }
 
-  function fetchOrders() {
-    dispatch('orders/fetch-all')
-  }
+  // function fetchOrders() {
+  //   dispatch('orders/fetch-all')
+  // }
 
   const renderItem = ({ item }) => {
     return (

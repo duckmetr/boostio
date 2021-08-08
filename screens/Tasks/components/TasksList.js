@@ -1,33 +1,34 @@
 import React, { useEffect } from 'react'
-import { FlatList, View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { FlatList, View, Text, Image, StyleSheet, TouchableOpacity, ToastAndroid } from 'react-native'
 import { useStoreon } from 'storeon/react'
 
 import { TrashIcon, HeartIcon, DotsIcon } from '../../../assets/icons'
 import EmptyTasksList from './EmptyTasksList'
 
+import * as api from '../../../api'
+
 function TasksList() {
   const { dispatch, tasks, profile } = useStoreon('tasks', 'profile')
+  const { username, instapi } = profile
 
-  // useEffect(() => {
-  //   fetchProfileInfo()
-  //   fetchTasks()
-  // }, [])
-  
-  // function fetchTasks() {
-  //   tasks.length || dispatch('tasks/fetch-all')
-  // }
-  
-  // function fetchProfileInfo() {
-  //   dispatch('profile/fetch-info')
-  // }
+  async function fetchLike({mediaId, username}) {
+    try {
+      dispatch('tasks/like', mediaId)
+      await instapi.like({ mediaId })
+      await api.likeTask({mediaId, username})
+    } catch (error) {
+      console.log(error)
+      ToastAndroid.show(error.message, ToastAndroid.SHORT)
+    }
+  }
 
   function handleLike(mediaId) {
-    dispatch('tasks/fetch-like', {mediaId, username: profile.username})
+    fetchLike({mediaId, username})
   }
   
-  // function handleDelete(id) {
+  // function handleDelete(mediaId) {
   //   dispatch('tasks/fetch-delete', id)
-  // } 
+  // }
 
   function renderItem({ item }) {
     return (

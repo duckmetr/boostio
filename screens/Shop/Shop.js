@@ -9,13 +9,13 @@ import Coins from '../../components/Coins'
 const Stack = createStackNavigator()
 
 const goods = [
-  {id: '455348', name: 100, prize: 49.99},
-  {id: '267604', name: 250, prize: 89.99},
-  {id: '667719', name: 500, prize: 159.99},
-  {id: '885674', name: 1000, prize: 269.99},
-  {id: '904787', name: 2500, prize: 599.99},
-  {id: '903453', name: 5000, prize: 799.99},
-  {id: '904090', name: 10000, prize: 1199.99}
+  {id: '455348', name: 100, prize: 4.99},
+  {id: '267604', name: 250, prize: 8.99},
+  {id: '667719', name: 500, prize: 15.99},
+  {id: '885674', name: 1000, prize: 26.99},
+  {id: '904787', name: 2500, prize: 59.99},
+  {id: '903453', name: 5000, prize: 79.99},
+  {id: '904090', name: 10000, prize: 119.99}
 ]
 
 function Shop() {
